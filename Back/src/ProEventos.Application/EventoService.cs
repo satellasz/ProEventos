@@ -9,23 +9,23 @@ namespace ProEventos.Application
 {
     public class EventoService : IEventoService
     {
-        private readonly IGeralRepository _geralPersist;
-        private readonly IEventoRepository _eventoPersist;
+        private readonly IGeralRepository _geralRepository;
+        private readonly IEventoRepository _eventoRepository;
 
-        public EventoService(IGeralRepository geralPersist, IEventoRepository eventoPersist)
+        public EventoService(IGeralRepository geralRepository, IEventoRepository eventoRepository)
         {
-            _geralPersist = geralPersist;
-            _eventoPersist = eventoPersist;
+            _geralRepository = geralRepository;
+            _eventoRepository = eventoRepository;
         }
         public async Task<Evento> AddEventos(Evento model)
         {
             try
             {
-                _geralPersist.Add<Evento>(model);
+                _geralRepository.Add<Evento>(model);
 
-                if (await _geralPersist.SaveChangesAsync())
+                if (await _geralRepository.SaveChangesAsync())
                 {
-                    return await _eventoPersist.GetEventoByIdAsync(model.Id, false);
+                    return await _eventoRepository.GetEventoByIdAsync(model.Id, false);
                 }
 
                 return null;
@@ -40,15 +40,15 @@ namespace ProEventos.Application
         {
             try
             {
-                Evento evento = await _eventoPersist.GetEventoByIdAsync(eventoId, false);
+                Evento evento = await _eventoRepository.GetEventoByIdAsync(eventoId, false);
                 if (evento == null) return null;
 
                 model.Id = evento.Id;
 
-                _geralPersist.Update(model);
-                if (await _geralPersist.SaveChangesAsync())
+                _geralRepository.Update(model);
+                if (await _geralRepository.SaveChangesAsync())
                 {
-                    return await _eventoPersist.GetEventoByIdAsync(model.Id, false);
+                    return await _eventoRepository.GetEventoByIdAsync(model.Id, false);
                 }
 
                 return null;
@@ -63,11 +63,11 @@ namespace ProEventos.Application
         {
             try
             {
-                Evento evento = await _eventoPersist.GetEventoByIdAsync(eventoId, false);
+                Evento evento = await _eventoRepository.GetEventoByIdAsync(eventoId, false);
                 if (evento == null) throw new Exception("Evento para deletar não foi encontrado.");
 
-                _geralPersist.Delete<Evento>(evento);
-                return await _geralPersist.SaveChangesAsync();
+                _geralRepository.Delete<Evento>(evento);
+                return await _geralRepository.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -79,7 +79,7 @@ namespace ProEventos.Application
         {
             try
             {
-                Evento[] eventos = await _eventoPersist.GetAllEventosAsync(includePalestrantes);
+                Evento[] eventos = await _eventoRepository.GetAllEventosAsync(includePalestrantes);
                 if (eventos == null) return null;
 
                 return eventos;
@@ -94,7 +94,7 @@ namespace ProEventos.Application
         {
             try
             {
-                Evento[] eventos = await _eventoPersist.GetAllEventosByTemaAsync(tema, includePalestrantes);
+                Evento[] eventos = await _eventoRepository.GetAllEventosByTemaAsync(tema, includePalestrantes);
                 if (eventos == null) return null;
 
                 return eventos;
@@ -109,7 +109,7 @@ namespace ProEventos.Application
         {
             try
             {
-                Evento evento = await _eventoPersist.GetEventoByIdAsync(eventoId, includePalestrantes);
+                Evento evento = await _eventoRepository.GetEventoByIdAsync(eventoId, includePalestrantes);
                 if (evento == null) return null;
 
                 return evento;
