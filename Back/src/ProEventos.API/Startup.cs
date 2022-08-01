@@ -1,7 +1,12 @@
-using ProEventos.API.Data;
+using ProEventos.Repository.Contextos;
+using ProEventos.Application;
+using ProEventos.Application.Contratos;
+using ProEventos.Repository;
+using ProEventos.Repository.Interfaces;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,18 +28,29 @@ namespace ProEventos.API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            // ********************
+            // **********************
             // Configuração do escopo
-            // *******************
+            // **********************
 
             // Base de dados
-            services.AddDbContext<DataContext>(
+            services.AddDbContext<ProEventosContext>(
                 context => context.UseSqlite(Configuration.GetConnectionString("Default"))
             );
 
+            // ****************************
             // Serviços e seus repositórios
+            // ****************************
 
-            services.AddControllers();
+            // Geral
+            services.AddScoped<IGeralRepository, GeralRepository>();
+
+            // Eventos
+            services.AddScoped<IEventoService, EventoService>();
+            services.AddScoped<IEventoRepository, EventoRepository>();
+            
+            // Previne que os models entrem em loop
+            services.AddControllers()
+                    .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddCors();
 
@@ -60,7 +76,7 @@ namespace ProEventos.API
 
             // ********************
             // Configuração do CORS
-            // *******************
+            // ********************
 
             app.UseCors(x => x.AllowAnyHeader()
                               .AllowAnyMethod()
