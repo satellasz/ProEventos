@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
@@ -11,30 +11,30 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppRoutingModule } from '@app/app-routing.module';
+import { AppComponent } from '@app/app.component';
 
 // Pipes
-import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
+import { DateTimeFormatPipe } from '@app/helpers/DateTimeFormat.pipe';
 
 // General
-import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
-import { ContatosComponent } from './components/contatos/contatos.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
-import { TituloComponent } from './shared/titulo/titulo.component';
-import { NavComponent } from './shared/nav/nav.component';
+import { PalestrantesComponent } from '@app/components/palestrantes/palestrantes.component';
+import { ContatosComponent } from '@app/components/contatos/contatos.component';
+import { DashboardComponent } from '@app/components/dashboard/dashboard.component';
+import { PerfilComponent } from '@app/components/perfil/perfil.component';
+import { TituloComponent } from '@app/shared/titulo/titulo.component';
+import { NavComponent } from '@app/shared/nav/nav.component';
 
 // Evento related
-import { EventosComponent } from './components/eventos/eventos.component';
-import { EventoService } from './services/evento.service';
-import { EventoDetalheComponent } from './components/eventos/evento-detalhe/evento-detalhe.component';
-import { EventoListaComponent } from './components/eventos/evento-lista/evento-lista.component';
+import { EventosComponent } from '@app/components/eventos/eventos.component';
+import { EventoService } from '@app/services/evento.service';
+import { EventoDetalheComponent } from '@app/components/eventos/evento-detalhe/evento-detalhe.component';
+import { EventoListaComponent } from '@app/components/eventos/evento-lista/evento-lista.component';
 
 // User related
-import { UserComponent } from './components/user/user.component';
-import { LoginComponent } from './components/user/login/login.component';
-import { RegistrationComponent } from './components/user/registration/registration.component';
+import { UserComponent } from '@app/components/user/user.component';
+import { LoginComponent } from '@app/components/user/login/login.component';
+import { RegistrationComponent } from '@app/components/user/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +59,7 @@ import { RegistrationComponent } from './components/user/registration/registrati
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     NgxSpinnerModule,
     CollapseModule.forRoot(),
     TooltipModule.forRoot(),

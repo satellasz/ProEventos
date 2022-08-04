@@ -1,5 +1,5 @@
-import { Evento } from "./Evento"
-import { Palestrante } from "./Palestrante"
+import { Evento } from "@app/models/Evento"
+import { Palestrante } from "@app/models/Palestrante"
 
 export interface RedeSocial {
   id: number

@@ -1,4 +1,4 @@
-import { Evento } from "./Evento"
+import { Evento } from "@app/models/Evento"
 
 export interface Lote {
   id: number
