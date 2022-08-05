@@ -1,6 +1,5 @@
 using ProEventos.Repository.Contextos;
 using ProEventos.Application;
-using ProEventos.Application.Contratos;
 using ProEventos.Repository;
 using ProEventos.Repository.Interfaces;
 
@@ -12,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using ProEventos.Application.Interfaces;
 
 namespace ProEventos.API
 {
@@ -51,6 +52,8 @@ namespace ProEventos.API
             // Previne que os models entrem em loop
             services.AddControllers()
                     .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddCors();
 
