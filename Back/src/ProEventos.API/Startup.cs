@@ -35,7 +35,7 @@ namespace ProEventos.API
 
             // Base de dados
             services.AddDbContext<ProEventosContext>(
-                context => context.UseSqlite(Configuration.GetConnectionString("Default"))
+                context => context.UseSqlServer(Configuration.GetConnectionString("DevelopmentDb"), assem => assem.MigrationsAssembly("ProEventos.API"))
             );
 
             // ****************************

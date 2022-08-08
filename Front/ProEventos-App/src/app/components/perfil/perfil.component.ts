@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ValidatorField } from '@app/helpers/ValidatorField';
 
 @Component({
@@ -36,7 +36,7 @@ export class PerfilComponent implements OnInit {
       funcao: ['', Validators.required],
       descricao: ['', Validators.required],
       senha: ['', [Validators.required, Validators.minLength(6)]],
-      confirmeSenha: ['', Validators.required]
+      confirmeSenha: ['', Validators.required],
     }, formOptions)
   }
 
@@ -49,5 +49,9 @@ export class PerfilComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
+  }
+
+  public cssValidator(campoForm: FormControl): any {
+    return {'is-invalid': campoForm.errors && campoForm.touched }
   }
 }
